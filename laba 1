@@ -1,0 +1,43 @@
+using System;
+
+internal class Program
+{
+    const int multipleOfThisNumber = 14, maxArrayLength = 1000, maxValueInArray = 10000;
+    private static void Main(string[] args)
+    {
+        int[] array = new int[maxArrayLength];
+        Random r = new Random();
+        for (int i = 0; i < array.Length; i++)
+            array[i] = r.Next(0, maxValueInArray);
+
+        int max = 0, multipleTwo = 0, multipleSeven = 0, multipleFourteen = 1, result = 0;
+
+        foreach (int num in array)
+        {
+            // Обновляем максимальное значение
+            if (num > max) max = num;
+
+            // Поиск чисел кратных 2 и 7
+            if (num % 2 == 0 && num > multipleTwo) multipleTwo = num;
+            if (num % 7 == 0 && num > multipleSeven) multipleSeven = num;
+
+            // Обновляем наибольшее число кратное 14
+            if (num % multipleOfThisNumber == 0 && num > multipleFourteen) multipleFourteen = num;
+        }
+
+        // Вычисляем произведение
+        result = multipleTwo * multipleSeven;
+
+        // Проверка результата
+        if (result == multipleFourteen && max == multipleFourteen)
+        {
+            Console.WriteLine($"{max} - это число соответствует условиям задачи." +
+                $"\nОно кратно 14, а также является произведением двух других различных элементов последовательности." +
+                $"\nЭто: {multipleTwo} и {multipleSeven}");
+        }
+        else
+        {
+            Console.WriteLine(-1);
+        }
+    }
+}
